@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dota Security — советы для новичков</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07040f;--bg2:#12082a;--card:#1a0d3a;--line:#3b1d7a;--neon:#a855ff;--neon2:#d08cff;--text:#ece6ff;--mute:#a99bd1;--red:#ff6b8b;--grn:#7dffb0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:radial-gradient(900px 500px at 80% -10%,#3a0f7a55,transparent),radial-gradient(700px 500px at 0% 30%,#5b1fb033,transparent),var(--bg);color:var(--text);font-family:'Rajdhani','Segoe UI',system-ui,sans-serif;font-size:18px;line-height:1.5;min-height:100vh}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Orbitron','Segoe UI',sans-serif;font-weight:900;letter-spacing:1px;font-size:20px}
+.logo svg{filter:drop-shadow(0 0 8px var(--neon))}
+.logo b{color:var(--neon2);text-shadow:0 0 12px var(--neon)}
+nav a{color:var(--mute);text-decoration:none;margin-left:18px;transition:.2s}
+nav a:hover{color:var(--neon2);text-shadow:0 0 10px var(--neon)}
+.hero{text-align:center;padding:56px 0 40px;position:relative}
+.hero h1{font-family:'Orbitron','Segoe UI',sans-serif;font-size:clamp(30px,6vw,56px);margin:0 0 14px;background:linear-gradient(90deg,#fff,var(--neon2),var(--neon));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px #a855ff77)}
+.hero p{color:var(--mute);max-width:560px;margin:0 auto 26px;font-size:20px}
+.deco{position:absolute;font-size:34px;opacity:.5;animation:fl 5s ease-in-out infinite}
+.deco.a{left:4%;top:50px}.deco.b{right:5%;top:90px;animation-delay:1.5s}.deco.c{left:12%;bottom:10px;animation-delay:3s}
+@keyframes fl{50%{transform:translateY(-12px) rotate(6deg)}}
+.btn{font:inherit;font-weight:700;letter-spacing:.5px;color:#fff;background:linear-gradient(135deg,#7c2cf0,#b84dff);border:1px solid #c58bff;border-radius:12px;padding:11px 22px;cursor:pointer;box-shadow:0 0 18px #a855ff55;transition:.25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 28px #c07bffaa}
+.btn:active{transform:translateY(0)}
+.btn.ghost{background:transparent;color:var(--neon2)}
+.btn.ghost:hover{background:#a855ff22}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+section{padding:28px 0}
+h2{font-family:'Orbitron','Segoe UI',sans-serif;font-size:22px;margin:0 0 16px;color:var(--neon2)}
+.panel{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 0 30px #7c2cf022}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.tab{font:inherit;font-weight:700;background:transparent;color:var(--mute);border:0;padding:9px 18px;cursor:pointer;transition:.2s}
+.tab.on{background:linear-gradient(135deg,#7c2cf0,#b84dff);color:#fff}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+input[type=search]{flex:1 1 220px;font:inherit;color:var(--text);background:#0c0620;border:1px solid var(--line);border-radius:12px;padding:10px 14px;outline:0;transition:.2s}
+input[type=search]:focus{border-color:var(--neon);box-shadow:0 0 14px #a855ff66}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{font:inherit;font-size:16px;color:var(--mute);background:#0c0620;border:1px solid var(--line);border-radius:999px;padding:4px 14px;cursor:pointer;transition:.2s}
+.chip:hover{color:var(--neon2);border-color:var(--neon)}
+.chip.on{color:#fff;background:#7c2cf0;border-color:var(--neon2);box-shadow:0 0 12px #a855ff88}
+.tip{background:#0c0620;border:1px solid var(--line);border-left:4px solid var(--neon);border-radius:14px;padding:20px;min-height:140px;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.tag{display:inline-block;font-size:14px;color:var(--neon2);border:1px solid var(--line);border-radius:999px;padding:1px 12px;margin-bottom:8px}
+.tip h3{margin:0 0 10px;font-size:24px}
+.tip .short{font-size:22px;margin:0}
+.blk{margin:12px 0 0}.blk b{display:block;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--neon2)}
+.blk.bad b{color:var(--red)}.blk.go b{color:var(--grn)}
+.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.count{margin-left:auto;color:var(--mute);font-size:16px}
+.count b{color:var(--neon2)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:18px}
+.mini{font:inherit;text-align:left;color:var(--text);background:#120a2b;border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.2s;font-size:16px}
+.mini:hover,.mini.on{border-color:var(--neon);box-shadow:0 0 14px #a855ff55;transform:translateY(-2px)}
+.mini.seen::after{content:" ✓";color:var(--grn)}
+.empty{color:var(--mute);padding:20px;text-align:center}
+.daily{display:flex;gap:16px;align-items:center}
+.daily .ic{font-size:44px;filter:drop-shadow(0 0 10px var(--neon))}
+footer{text-align:center;color:var(--mute);padding:30px 0;font-size:15px}
+@media(max-width:600px){nav{display:none}.count{margin-left:0;width:100%}.deco{display:none}.tip h3{font-size:21px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="logo"><svg width="34" height="38" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 2 31 8v10c0 10-6 16-14 19C9 34 3 28 3 18V8z" fill="#1a0d3a" stroke="#c58bff" stroke-width="2"/><path d="M17 10l6 4v6c0 4-3 7-6 8-3-1-6-4-6-8v-6z" fill="#a855ff"/></svg><span>DOTA <b>SECURITY</b></span></div>
+ <nav><a href="#daily">Совет дня</a><a href="#tips">Советы</a></nav>
+</header>
+
+<div class="hero">
+ <span class="deco a">⚔️</span><span class="deco b">🛡️</span><span class="deco c">💎</span>
+ <h1>Стань сильнее в Dota 2</h1>
+ <p>Полезные советы, тактики и секреты, которые помогут тебе начать побеждать.</p>
+ <div class="btns"><button class="btn" id="heroShort">⚡ Короткие советы</button><button class="btn ghost" id="heroLong">📚 Подробные советы</button></div>
+</div>
+
+<section id="daily"><h2>🌟 Совет дня</h2><div class="panel daily"><div class="ic">🔮</div><div><span class="tag" id="dCat"></span><div id="dText" style="font-size:21px"></div></div></div></section>
+
+<section id="tips"><h2>🗡️ Советы для новичков</h2>
+<div class="panel">
+ <div class="tabs"><button class="tab on" id="tShort">⚡ Короткие</button><button class="tab" id="tLong">📚 Подробные</button></div>
+ <div class="tools"><input type="search" id="q" placeholder="🔍 Поиск по советам..." aria-label="Поиск"><button class="btn ghost" id="reset">Сбросить</button></div>
+ <div class="chips" id="chips"></div>
+ <div id="view"></div>
+ <div class="nav"><button class="btn ghost" id="prev">← Назад</button><button class="btn" id="next">Следующий совет →</button><button class="btn" id="rnd">🎲 Случайный совет</button><span class="count">Просмотрено: <b id="seen">0</b> из <b id="total">0</b></span></div>
+ <div class="list" id="list"></div>
+</div></section>
+<footer>Dota Security · неофициальный фанатский проект. Dota 2 — торговая марка Valve.</footer>
+</div>
+
+<script>
+const CATS=["Фарм","Выбор героя","Лайнинг","Карта и обзор","Предметы","Командная игра","Позиционирование","Роли"];
+const ICON={"Фарм":"💰","Выбор героя":"🧙","Лайнинг":"🛣️","Карта и обзор":"🗺️","Предметы":"🎒","Командная игра":"🤝","Позиционирование":"🎯","Роли":"👑"};
+const SHORT=[
+["Фарм","Добивай крипов (last hit): золото получает только тот, кто нанёс последний удар."],
+["Предметы","Всегда покупай Town Portal Scroll (TP), чтобы быстрее помогать союзникам."],
+["Карта и обзор","Следи за мини-картой каждые несколько секунд."],
+["Карта и обзор","Не забывай покупать Observer Ward и следить за обзором."],
+["Командная игра","Не начинай драку в одиночку против нескольких врагов."],
+["Предметы","Покупай предметы в зависимости от ситуации в игре."],
+["Фарм","Не умирай зря: смерть отнимает золото и время фарма."],
+["Выбор героя","Начинай с простых героев с понятными умениями и учись на них."],
+["Лайнинг","Не стой под вышкой врага без причины: она сильно бьёт."],
+["Лайнинг","Оттягивай крипов (pull), если враг давит на линии."],
+["Командная игра","Не ругайся в чате: спокойная команда выигрывает чаще."],
+["Позиционирование","Держись позади танков и не выходи вперёд в драке без нужды."],
+["Роли","Саппорт жертвует золотом ради команды: покупай варды и курьера."],
+["Карта и обзор","Перед Рошаном проверь, где находятся враги."],
+["Предметы","Ботинки и базовые расходники — лучшая первая покупка почти для всех."],
+["Командная игра","Дерись рядом с союзниками, а не бегай по карте в одиночку."],
+["Фарм","Фарми лесные кемпы, когда на линии нечего делать."]];
+const LONG=[
+{c:"Фарм",t:"Как правильно добивать крипов",p:"Новички бьют крипов подряд и теряют золото, которое достаётся врагу.",d:"Следи за здоровьем крипа. Когда его здоровья едва хватает на твой удар — бей. Своих крипов добивай (deny), чтобы враг получал меньше опыта.",e:"Враг-крип почти мёртв, а твой удар не прошёл. Ты ждёшь следующей волны и спокойно добиваешь, а не атакуешь вслепую.",m:"Бить крипа сразу после появления, не следить за анимацией удара и жадничать за золотом под вышкой.",a:"Зайди в тренировочный режим и отработай 50 добиваний подряд без промахов."},
+{c:"Выбор героя",t:"Выбирай героя под свою роль",p:"Сложные герои без понимания механик приводят к проигрышу.",d:"Начни с 2–3 героев и играй ими 20 игр. Изучи умения, предметы и тайминги. Не меняй героя после каждой неудачи.",e:"Ты играешь Sniper, но враг тебя всё время убивает. Вместо смены героя ты берёшь BKB и стоишь дальше от врагов.",m:"Брать героя только потому, что он красив, и менять его каждую игру.",a:"Выбери одного героя и сыграй им три игры, записывая ошибки."},
+{c:"Лайнинг",t:"Поведение на линии",p:"Новички лезут в драку на линии без нужды и отдают золото врагу.",d:"Держись на безопасном расстоянии от вышки врага и бей крипов, когда есть возможность. Отходи, если здоровье меньше половины.",e:"Враг держит герой с дальним ударом и харассит тебя. Ты отходишь назад, покупаешь расходники и возвращаешься с полным здоровьем.",m:"Играть при низком здоровье и не отходить вовремя.",a:"В следующей игре следи за здоровьем и маной каждые 20 секунд."},
+{c:"Карта и обзор",t:"Обзор и мини-карта",p:"Без обзора вас легко убивают из тумана войны.",d:"Покупай и ставь Observer Ward на подходах к линиям и в лесу. Смотри на мини-карту каждые 5 секунд и замечай, кто пропал.",e:"Враг пропал с линии: ты понимаешь, что он пошёл на гэнк, и отступаешь заранее.",m:"Не ставить варды, ставить их в одно и то же место и не смотреть на мини-карту.",a:"Поставь 3 варды за игру и подпиши, что они увидели."},
+{c:"Предметы",t:"Как собирать предметы",p:"Некоторые покупают одни и те же предметы в каждой игре.",d:"Начинай с рекомендаций игры и адаптируй сборку. Если враг убивает тебя магией — бери защиту от магии. Если у врага невидимость — бери Dust.",e:"Против героя с физическим уроном ты берёшь Armor-предметы вместо ещё одного меча.",m:"Копить золото без покупки и игнорировать врага.",a:"После 10-й минуты посмотри на предметы врагов и измени сборку."},
+{c:"Командная игра",t:"Играй вместе с командой",p:"Одиночные действия проигрывают организованным дракам.",d:"Передвигайся рядом с союзниками, используй TP на драку и пингуй цели. Начинай драку, только когда рядом команда.",e:"Союзники берут Рошана. Ты телепортируешься и помогаешь, а не фармишь в одиночку.",m:"Не слушать команду и не использовать TP на драки.",a:"Попингуй цель или опасность хотя бы 5 раз за игру."},
+{c:"Позиционирование",t:"Позиция в драке",p:"Керри часто гибнет первым, потому что стоит слишком близко к врагу.",d:"Дальнобойные герои стоят позади танков. Бей ближайшую безопасную цель и отступай, когда враг прыгает на тебя.",e:"Ты на Drow Ranger стоишь за танком, а не бежишь вперёд. Враг теряет время на танка, а ты наносишь урон.",m:"Выходить вперёд после первого убийства и не убегать вовремя.",a:"Следи за своей позицией и сравнивай с позицией союзного танка."},
+{c:"Роли",t:"Carry и Mid",p:"Новичкам непонятно, зачем нужны эти роли.",d:"Carry фармит и усиливается к поздней игре. Mid получает опыт, быстро растёт и помогает на линиях. Оба держат золото для ключевых предметов.",e:"Mid берёт руну, быстро убивает врага и помогает Carry на линии.",m:"Carry бежит на драки слишком рано, Mid не берёт руны.",a:"Играя Mid, не пропускай руны, которые появляются каждые 2 минуты."},
+{c:"Роли",t:"Offlane, Support, Hard Support",p:"Новички не знают, что делать на этих ролях.",d:"Offlane создаёт давление и начинает драки. Support помогает на линиях и ставит варды. Hard Support защищает Carry и покупает расходники и обзор.",e:"Hard Support покупает варды и отгоняет врагов от Carry, пока тот фармит.",m:"Support крадёт золото и убивает вместо Carry.",a:"Играя саппортом, купи минимум 2 варды до 10-й минуты."},
+{c:"Командная игра",t:"Рошан и цели",p:"Новички забывают о целях и играют только за убийства.",d:"Забирай вышки и Рошана, когда враги мертвы или далеко. Проверяй обзор и убедись, что вся команда рядом.",e:"Вы убили трёх врагов — идите на вышку или Рошана, а не гонитесь за последним.",m:"Рошан без обзора и без команды.",a:"После выигранной драки сразу выбери цель: вышка или Рошан."}];
+
+const $=id=>document.getElementById(id);
+const st={mode:"short",cat:"all",q:"",idx:0,seen:new Set()};
+const data=()=>st.mode==="short"?SHORT.map((x,i)=>({k:"s"+i,c:x[0],t:x[1]})):LONG.map((x,i)=>({...x,k:"l"+i}));
+const list=()=>{const q=st.q.trim().toLowerCase();return data().filter(x=>(st.cat==="all"||x.c===st.cat)&&(!q||JSON.stringify(x).toLowerCase().includes(q)))};
+
+function card(x){
+ const tag=`<span class="tag">${ICON[x.c]} ${x.c}</span>`;
+ if(st.mode==="short")return `<div class="tip">${tag}<p class="short">${x.t}</p></div>`;
+ return `<div class="tip">${tag}<h3>${x.t}</h3>
+ <div class="blk"><b>Проблема</b>${x.p}</div><div class="blk"><b>Что делать</b>${x.d}</div>
+ <div class="blk"><b>Пример из игры</b>${x.e}</div><div class="blk bad"><b>Типичные ошибки</b>${x.m}</div>
+ <div class="blk go"><b>Практика на следующую игру</b>${x.a}</div></div>`;
+}
+function render(){
+ const l=list();
+ if(st.idx>=l.length)st.idx=0;
+ if(!l.length){$("view").innerHTML='<div class="tip"><div class="empty">Ничего не найдено. Измени запрос или категорию.</div></div>';}
+ else{const x=l[st.idx];st.seen.add(x.k);$("view").innerHTML=card(x);}
+ $("list").innerHTML=l.map((x,i)=>`<button class="mini${i===st.idx?" on":""}${st.seen.has(x.k)?" seen":""}" data-i="${i}">${ICON[x.c]} ${st.mode==="short"?x.t.slice(0,48)+(x.t.length>48?"…":""):x.t}</button>`).join("");
+ $("list").querySelectorAll(".mini").forEach(b=>b.onclick=()=>{st.idx=+b.dataset.i;render()});
+ $("seen").textContent=st.seen.size;
+ $("total").textContent=SHORT.length+LONG.length;
+ $("tShort").classList.toggle("on",st.mode==="short");$("tLong").classList.toggle("on",st.mode==="long");
+ document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c.dataset.c===st.cat));
+}
+function setMode(m){st.mode=m;st.idx=0;render()}
+function rand(){const n=list().length;if(n>1){let i;do{i=Math.floor(Math.random()*n)}while(i===st.idx);st.idx=i}render()}
+function goTips(m){setMode(m);st.cat="all";st.q="";$("q").value="";rand();$("tips").scrollIntoView({behavior:"smooth"})}
+
+$("chips").innerHTML=['<button class="chip on" data-c="all">Все</button>'].concat(CATS.map(c=>`<button class="chip" data-c="${c}">${ICON[c]} ${c}</button>`)).join("");
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{st.cat=b.dataset.c;st.idx=0;render()});
+$("tShort").onclick=()=>setMode("short");$("tLong").onclick=()=>setMode("long");
+$("heroShort").onclick=()=>goTips("short");$("heroLong").onclick=()=>goTips("long");
+$("next").onclick=()=>{const n=list().length;if(n){st.idx=(st.idx+1)%n}render()};
+$("prev").onclick=()=>{const n=list().length;if(n){st.idx=(st.idx-1+n)%n}render()};
+$("rnd").onclick=rand;
+$("q").oninput=e=>{st.q=e.target.value;st.idx=0;render()};
+$("reset").onclick=()=>{st.q="";st.cat="all";st.idx=0;$("q").value="";render()};
+
+const day=Math.floor(Date.now()/864e5),dt=SHORT[day%SHORT.length];
+$("dCat").textContent=ICON[dt[0]]+" "+dt[0];$("dText").textContent=dt[1];
+render();
+</script>
+</body>
+</html>
